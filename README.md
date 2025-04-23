@@ -41,6 +41,7 @@ La API implementa las siguientes funcionalidades:
 - Bucket4j (para rate limiting)
 - Flyway (migraciones de base de datos)
 - JUnit y Mockito (pruebas unitarias)
+- GitHub Actions (CI/CD)
 
 ## Requisitos
 
@@ -55,8 +56,8 @@ La API implementa las siguientes funcionalidades:
 1. Clone el repositorio:
 
    ```bash
-   git clone <url-del-repositorio>
-   cd ChallengeTenpo
+   git clone https://github.com/HAHGX/tmp-api-rest-spring-boot
+
    ```
 
 2. Inicie los servicios con Docker Compose:
@@ -110,6 +111,7 @@ La API implementa las siguientes funcionalidades:
 ├── build-and-push.sh            # Script para construir y publicar la imagen Docker del desafío de Tenpo
 ├── Dockerfile                   # Instrucciones para construir la imagen Docker
 ├── docker-compose.yml           # Configuración de servicios para Docker Compose
+├── .github/workflows/           # Flujos de trabajo de GitHub Actions
 └── pom.xml                      # Dependencias y configuración del proyecto
 ```
 
@@ -212,6 +214,18 @@ Esto confirma que:
 - Redis está funcionando correctamente dentro del contenedor
 - La aplicación está utilizando Redis como caché
 - El porcentaje dinámico se está almacenando correctamente en la caché con la clave "percentageCache::SimpleKey []"
+
+## CI/CD e Imágenes Docker
+
+La aplicación utiliza GitHub Actions para CI/CD, publicando automáticamente nuevas imágenes Docker cuando se crea una nueva release. El flujo de trabajo:
+
+1. Se activa cuando se publica una nueva release en GitHub
+2. Construye la imagen Docker de la aplicación
+3. Etiqueta la imagen con versiones semánticas (major.minor, SHA, etc.)
+4. Publica la imagen en Docker Hub
+5. Genera atestaciones de artefactos para seguridad
+
+La imagen Docker está disponible en [Docker Hub](https://hub.docker.com/repository/docker/hahg/tmp-api-rest-spring-boot/).
 
 ## Mejora de Escalabilidad
 
