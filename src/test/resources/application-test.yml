@@ -1,0 +1,33 @@
+spring:
+  # Configuración de base de datos en memoria para pruebas
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  # Desactivar Redis para pruebas
+  cache:
+    type: none
+  # Configuración de migrations para pruebas
+  flyway:
+    enabled: false
+
+# Configuración de rate limit para pruebas
+rate-limit:
+  requests-per-minute: 3
+  time-unit: MINUTES
+  strategy: INTERVAL
+
+# Configuración de servicio de porcentaje para pruebas
+external-service:
+  percentage:
+    url: http://localhost:8888/mock-percentage
+    cache-ttl: 100
+    retry-max-attempts: 1
+    retry-delay: 100

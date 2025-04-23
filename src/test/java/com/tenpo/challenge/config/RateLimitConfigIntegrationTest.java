@@ -5,15 +5,14 @@ import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@ActiveProfiles("test") // Activa el perfil de pruebas
+// Eliminamos @SpringBootTest para evitar cargar todo el contexto
+@ActiveProfiles("test") 
 class RateLimitConfigIntegrationTest {
 
     private Bucket rateLimitBucket;
