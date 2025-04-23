@@ -1,0 +1,229 @@
+{
+  "info": {
+    "_postman_id": "28a3b5e0-5d71-4ae1-8cce-f06a22049c43",
+    "name": "Tenpo Challenge API",
+    "description": "Colección para probar los endpoints de la API del desafío técnico de Tenpo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Calculation",
+      "item": [
+        {
+          "name": "Calculate (Synchronous)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"num1\": 10.0,\n    \"num2\": 20.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/calculation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calculation"
+              ]
+            },
+            "description": "Endpoint para calcular la suma de dos números y aplicarles un porcentaje dinámico (enfoque sincrónico)"
+          },
+          "response": []
+        },
+        {
+          "name": "Calculate (Reactive)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"num1\": 50.0,\n    \"num2\": 50.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/calculation/reactive",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calculation",
+                "reactive"
+              ]
+            },
+            "description": "Endpoint para calcular la suma de dos números y aplicarles un porcentaje dinámico (enfoque reactivo)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para operaciones de cálculo con porcentaje dinámico"
+    },
+    {
+      "name": "History",
+      "item": [
+        {
+          "name": "Get API Call History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/history?page=0&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Endpoint para obtener el historial de llamadas a la API con paginación"
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para consultar el historial de llamadas a la API"
+    },
+    {
+      "name": "Mock External Service",
+      "item": [
+        {
+          "name": "Get Percentage",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/mock/percentage",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mock",
+                "percentage"
+              ]
+            },
+            "description": "Endpoint que simula un servicio externo que devuelve un porcentaje aleatorio"
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints del servicio mock para simular servicios externos"
+    },
+    {
+      "name": "Rate Limit Test",
+      "item": [
+        {
+          "name": "Test Rate Limit",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Verificar si es la primera iteración",
+                  "const iteration = pm.variables.get(\"iteration\");",
+                  "if (!iteration) {",
+                  "    pm.variables.set(\"iteration\", 1);",
+                  "    pm.variables.set(\"successCount\", 0);",
+                  "    pm.variables.set(\"rateLimitCount\", 0);",
+                  "    console.log(\"Iniciando prueba de rate limiting...\");",
+                  "} else {",
+                  "    pm.variables.set(\"iteration\", parseInt(iteration) + 1);",
+                  "}",
+                  "",
+                  "// Verificar resultado",
+                  "if (pm.response.code === 200) {",
+                  "    const successCount = parseInt(pm.variables.get(\"successCount\")) + 1;",
+                  "    pm.variables.set(\"successCount\", successCount);",
+                  "    console.log(`Solicitud #${pm.variables.get(\"iteration\")}: OK (${successCount} exitosas)`);",
+                  "} else if (pm.response.code === 429) {",
+                  "    const rateLimitCount = parseInt(pm.variables.get(\"rateLimitCount\")) + 1;",
+                  "    pm.variables.set(\"rateLimitCount\", rateLimitCount);",
+                  "    console.log(`Solicitud #${pm.variables.get(\"iteration\")}: Rate limit excedido (${rateLimitCount} bloqueadas)`);",
+                  "}",
+                  "",
+                  "// Si es la última iteración, mostrar resultados",
+                  "if (pm.variables.get(\"iteration\") === \"5\") {",
+                  "    console.log(\"----- RESULTADOS DE LA PRUEBA -----\");",
+                  "    console.log(`Solicitudes exitosas: ${pm.variables.get(\"successCount\")}`);",
+                  "    console.log(`Solicitudes bloqueadas por rate limit: ${pm.variables.get(\"rateLimitCount\")}`);",
+                  "    console.log(\"La configuración de rate limit debe permitir 3 RPM\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"num1\": 1.0,\n    \"num2\": 2.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/calculation",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "calculation"
+              ]
+            },
+            "description": "Endpoint para probar el rate limiting (ejecutar varias veces rápidamente)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Pruebas para verificar el control de tasas (rate limiting)"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api",
+      "type": "string"
+    }
+  ]
+}
