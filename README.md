@@ -231,4 +231,4 @@ Se implementaron tests unitarios para los componentes principales. Para un proye
 
 ## Autor
 
-Tech Lead Developer - Tenpo Challenge
+Hugo Herrera, Tech Lead - For Tenpo Challenge

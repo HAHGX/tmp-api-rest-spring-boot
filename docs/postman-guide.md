@@ -55,3 +55,7 @@ Utiliza la colección para explorar todas las funcionalidades implementadas en e
 - Observa cómo funciona la caché realizando varias llamadas mientras el servicio mock ocasionalmente simula fallos.
 
 La colección te permitirá verificar de forma rápida y sencilla que la implementación cumple con todos los requisitos del desafío técnico.
+
+## Autor
+
+Hugo Herrera, Tech Lead - For Tenpo Challenge

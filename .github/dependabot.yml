@@ -5,7 +5,46 @@
 
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
+  - package-ecosystem: "docker" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    commit-message:
+      prefix-development: "chore(deps-dev): docker"
+    open-pull-requests-limit: 10 # Limit number of open PRs
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  - package-ecosystem: "docker-compose" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix-development: "chore(deps-dev): docker-compose"
+    open-pull-requests-limit: 10 # Limit number of open PRs
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  - package-ecosystem: "github-actions" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix-development: "chore(deps-dev): GHA"
+    open-pull-requests-limit: 10 # Limit number of open PRs
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix-development: "chore(deps-dev): maven"
+    open-pull-requests-limit: 10 # Limit number of open PRs
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
