@@ -1,0 +1,33 @@
+name: Java CI with Maven
+
+on:
+    push:
+    branches:
+        - main # O la rama principal de tu repositorio
+        - 'refs/tags/*' # Para ejecutar en cada tag
+        - feature/* # Para ejecutar en cada rama de características
+        - chore/* # Para ejecutar en cada rama de mantenimiento
+        - bugfix/* # Para ejecutar en cada rama de corrección de errores
+        - hotfix/* # Para ejecutar en cada rama de corrección urgente
+
+        pull_request:
+        branches: [ main ] # O la rama principal de tu repositorio
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v4
+        - name: Set up JDK 21 # Ajusta la versión de Java si es necesario
+            uses: actions/setup-java@v4
+            with:
+                java-version: '21'
+                distribution: 'temurin'
+                cache: maven
+                cache-dependency-path: 'pom.xml'
+
+        - name: Run tests
+            run: |
+                mvn test -Dnet.bytebuddy.experimental=true
+
