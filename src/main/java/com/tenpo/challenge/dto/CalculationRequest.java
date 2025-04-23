@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CalculationRequest {
-    
+
     @NotNull(message = "El primer número no puede ser nulo")
     private Double num1;
-    
+
     @NotNull(message = "El segundo número no puede ser nulo")
     private Double num2;
 }

@@ -1,6 +1,6 @@
-# Tenpo Challenge - API REST con Spring Boot
+# Tenpo Challenge - API REST con Spring Boot by Hugo Herrera
 
-Este proyecto es una API REST desarrollada con Spring Boot para el desafío técnico de Tenpo. La API proporciona funcionalidades para realizar cálculos con porcentajes dinámicos, historial de llamadas y control de tasas.
+Este proyecto es una API REST desarrollada con ❤️‍🔥 y 💪, usando Spring Boot para el desafío técnico de Tenpo. La API proporciona funcionalidades para realizar cálculos con porcentajes dinámicos, historial de llamadas y control de tasas.
 
 ## Descripción del Proyecto
 
