@@ -2,7 +2,6 @@ package com.tenpo.challenge.config;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
-import io.github.bucket4j.Refill;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
@@ -20,7 +19,10 @@ class RateLimitConfigIntegrationTest {
     @BeforeEach
     void setUp() {
         // Crear un bucket en memoria para pruebas (3 tokens, recarga 3 por minuto)
-        Bandwidth limit = Bandwidth.classic(3, Refill.greedy(3, Duration.ofMinutes(1)));
+        Bandwidth limit = Bandwidth.builder()
+                .capacity(3)
+                .refillIntervally(3, Duration.ofMinutes(1))
+                .build();
         rateLimitBucket = Bucket.builder().addLimit(limit).build();
     }
 
