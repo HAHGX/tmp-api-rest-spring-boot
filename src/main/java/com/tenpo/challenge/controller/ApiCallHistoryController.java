@@ -6,7 +6,10 @@ import io.github.bucket4j.Bucket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,12 +29,13 @@ public class ApiCallHistoryController {
 
     /**
      * Endpoint para consultar el historial de llamadas a la API de forma paginada
-     * @param pageable Configuración de paginación
+     * @param pageable Configuración de paginación con ordenación por defecto por fecha de creación descendente
      * @return Historial de llamadas paginado
      * @throws RateLimitExceededException si se excede el límite de solicitudes permitidas
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<ApiCallHistoryResponse>> getHistory(Pageable pageable) {
+    public ResponseEntity<Page<ApiCallHistoryResponse>> getHistory(
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         // Verificar límite de tasa
         if (!rateLimitBucket.tryConsume(1)) {
             throw new RateLimitExceededException("Se ha excedido el límite de solicitudes permitidas. Por favor, intente más tarde.");
