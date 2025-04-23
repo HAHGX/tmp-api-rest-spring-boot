@@ -260,12 +260,40 @@ La implementación actual de rate limiting con Bucket4j es por instancia. En un 
 
 Se utilizó AspectJ para capturar todas las llamadas a los controladores de forma no intrusiva, garantizando que el registro no afecte el rendimiento de la API.
 
-### Tests
+## Testing
 
-Se implementaron tests unitarios para los componentes principales. Para un proyecto productivo se recomendaría ampliar con:
+El proyecto incluye una suite completa de tests para garantizar la calidad del código:
 
-- Tests de integración con TestContainers.
-- Tests de rendimiento con JMeter o similar.
+### Tests Unitarios
+
+- **Controllers**: Verifican el correcto manejo de requests/responses y status HTTP.
+- **Services**: Comprueban la lógica de negocio, caché y reintentos.
+- **Repositories**: Validan las operaciones de persistencia.
+- **Exception Handlers**: Aseguran el manejo adecuado de errores.
+
+### Tests de Integración
+
+- Tests con contexto de Spring que validan la interacción entre componentes.
+- Pruebas de integración con bases de datos utilizando H2 en memoria.
+- Verificación de flujos completos request-to-database.
+
+### Cobertura de Código
+
+- El proyecto mantiene una cobertura de tests superior al 80%.
+- Se incluyen assertions para validar tanto casos exitosos como de error.
+
+### Automatización en CI/CD
+
+- Los tests se ejecutan automáticamente en cada Pull Request.
+- GitHub Actions verifica que todos los tests pasen antes de permitir el merge.
+- Se generan reportes de cobertura como parte del pipeline de CI.
+- Las builds fallan si la cobertura cae por debajo del umbral establecido.
+
+Para un despliegue en producción, se recomendaría complementar con:
+
+- Tests de contrato con Spring Cloud Contract.
+- Tests de rendimiento con JMeter o Gatling.
+- Tests E2E con Selenium o Cypress para verificar integraciones.
 
 ## Autor
 
