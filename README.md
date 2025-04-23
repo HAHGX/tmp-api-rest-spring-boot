@@ -189,6 +189,30 @@ La API maneja los siguientes errores:
 - **503 Service Unavailable**: Cuando el servicio externo no responde y no hay valor en caché.
 - **500 Internal Server Error**: Para errores internos no controlados.
 
+## Verificación del funcionamiento de Redis
+
+Para verificar que Redis está funcionando correctamente y que la caché está operando como se espera, puede ejecutar los siguientes comandos:
+
+```bash
+# Ver las claves almacenadas en Redis
+docker exec -it tenpo-challenge-redis redis-cli keys "*"
+
+# Resultado ejemplo:
+# 1) "percentageCache::SimpleKey []"
+
+# Ver el contenido de la clave de caché del porcentaje
+docker exec -it tenpo-challenge-redis redis-cli GET "percentageCache::SimpleKey []"
+
+# Resultado ejemplo:
+# "19.906533959214876"
+```
+
+Esto confirma que:
+
+- Redis está funcionando correctamente dentro del contenedor
+- La aplicación está utilizando Redis como caché
+- El porcentaje dinámico se está almacenando correctamente en la caché con la clave "percentageCache::SimpleKey []"
+
 ## Mejora de Escalabilidad
 
 Esta implementación está preparada para ejecutarse en un entorno con múltiples réplicas:
@@ -231,4 +255,4 @@ Se implementaron tests unitarios para los componentes principales. Para un proye
 
 ## Autor
 
-Hugo Herrera, Tech Lead - For Tenpo Challenge
+Hugo Herrera, Software Architect, Tech Lead - For Tenpo Challenge
