@@ -42,6 +42,8 @@ external-service:
 
 rate-limit:
   requests-per-minute: 3
+  time-unit: MINUTES
+  strategy: INTERVAL
 
 springdoc:
   api-docs:
