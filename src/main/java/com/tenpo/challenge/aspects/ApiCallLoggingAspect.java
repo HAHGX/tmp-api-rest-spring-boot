@@ -19,6 +19,37 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 
 import java.nio.charset.StandardCharsets;
+/**
+ * Aspecto para registrar las llamadas a la API realizadas a controladores REST.
+ * 
+ * Este aspect intercepta todas las ejecuciones de métodos de controladores REST y registra detalles
+ * sobre la llamada a la API, incluyendo detalles de la solicitud e información de respuesta. Los registros
+ * se almacenan de forma asíncrona utilizando el ApiCallHistoryService.
+ * 
+ * El aspect maneja tanto llamadas exitosas (usando @AfterReturning) como llamadas fallidas
+ * (usando @AfterThrowing), recopilando información apropiada en cada caso.
+ * 
+ * Para llamadas exitosas, captura:
+ * - La URI del endpoint
+ * - Método HTTP
+ * - Parámetros de la solicitud
+ * - Cuerpo de la respuesta
+ * - Código de estado HTTP
+ * 
+ * Para llamadas fallidas, captura:
+ * - La URI del endpoint
+ * - Método HTTP
+ * - Parámetros de la solicitud
+ * - Mensaje de error
+ * - Código de estado HTTP (determinado según el tipo de excepción)
+ *
+ * El aspect utiliza el RequestContextHolder de Spring para acceder a la solicitud HTTP actual,
+ * y el ObjectMapper de Jackson para serializar datos de respuesta.
+ *
+ *
+ * @Author Hugo Herrera
+ * @Version 1.0
+ */
 
 @Aspect
 @Component

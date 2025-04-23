@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 // publisher mono se usa para el enfoque reactivo. Mono a diferencia de flux, es un solo valor
+// TODO: implementar el enfoque mixto
 //import reactor.core.publisher.Mono;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -85,7 +86,7 @@ class CalculationControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isTooManyRequests())
                 .andExpect(jsonPath("$.status").value(429))
-                .andExpect(jsonPath("$.error").value("Rate limit exceeded"));
+                .andExpect(jsonPath("$.error").value("Límite de velocidad excedido"));
     }
 
     @Test
@@ -103,6 +104,6 @@ class CalculationControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isServiceUnavailable())
                 .andExpect(jsonPath("$.status").value(503))
-                .andExpect(jsonPath("$.error").value("Service temporarily unavailable"));
+                .andExpect(jsonPath("$.error").value("Servicio temporalmente no disponible"));
     }
 }

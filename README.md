@@ -1,6 +1,6 @@
-# Tenpo Challenge - API REST con Spring Boot
+# Tenpo Challenge - API REST con Spring Boot by Hugo Herrera
 
-Este proyecto es una API REST desarrollada con Spring Boot para el desafío técnico de Tenpo. La API proporciona funcionalidades para realizar cálculos con porcentajes dinámicos, historial de llamadas y control de tasas.
+Este proyecto es una API REST desarrollada con ❤️‍🔥 y 💪, usando Spring Boot para el desafío técnico de Tenpo. La API proporciona funcionalidades para realizar cálculos con porcentajes dinámicos, historial de llamadas y control de tasas.
 
 ## Descripción del Proyecto
 
@@ -41,6 +41,7 @@ La API implementa las siguientes funcionalidades:
 - Bucket4j (para rate limiting)
 - Flyway (migraciones de base de datos)
 - JUnit y Mockito (pruebas unitarias)
+- GitHub Actions (CI/CD)
 
 ## Requisitos
 
@@ -55,8 +56,8 @@ La API implementa las siguientes funcionalidades:
 1. Clone el repositorio:
 
    ```bash
-   git clone <url-del-repositorio>
-   cd ChallengeTenpo
+   git clone https://github.com/HAHGX/tmp-api-rest-spring-boot
+
    ```
 
 2. Inicie los servicios con Docker Compose:
@@ -110,6 +111,7 @@ La API implementa las siguientes funcionalidades:
 ├── build-and-push.sh            # Script para construir y publicar la imagen Docker del desafío de Tenpo
 ├── Dockerfile                   # Instrucciones para construir la imagen Docker
 ├── docker-compose.yml           # Configuración de servicios para Docker Compose
+├── .github/workflows/           # Flujos de trabajo de GitHub Actions
 └── pom.xml                      # Dependencias y configuración del proyecto
 ```
 
@@ -189,6 +191,42 @@ La API maneja los siguientes errores:
 - **503 Service Unavailable**: Cuando el servicio externo no responde y no hay valor en caché.
 - **500 Internal Server Error**: Para errores internos no controlados.
 
+## Verificación del funcionamiento de Redis
+
+Para verificar que Redis está funcionando correctamente y que la caché está operando como se espera, puede ejecutar los siguientes comandos:
+
+```bash
+# Ver las claves almacenadas en Redis
+docker exec -it tenpo-challenge-redis redis-cli keys "*"
+
+# Resultado ejemplo:
+# 1) "percentageCache::SimpleKey []"
+
+# Ver el contenido de la clave de caché del porcentaje
+docker exec -it tenpo-challenge-redis redis-cli GET "percentageCache::SimpleKey []"
+
+# Resultado ejemplo:
+# "19.906533959214876"
+```
+
+Esto confirma que:
+
+- Redis está funcionando correctamente dentro del contenedor
+- La aplicación está utilizando Redis como caché
+- El porcentaje dinámico se está almacenando correctamente en la caché con la clave "percentageCache::SimpleKey []"
+
+## CI/CD e Imágenes Docker
+
+La aplicación utiliza GitHub Actions para CI/CD, publicando automáticamente nuevas imágenes Docker cuando se crea una nueva release. El flujo de trabajo:
+
+1. Se activa cuando se publica una nueva release en GitHub
+2. Construye la imagen Docker de la aplicación
+3. Etiqueta la imagen con versiones semánticas (major.minor, SHA, etc.)
+4. Publica la imagen en Docker Hub
+5. Genera atestaciones de artefactos para seguridad
+
+La imagen Docker está disponible en [Docker Hub](https://hub.docker.com/repository/docker/hahg/tmp-api-rest-spring-boot/).
+
 ## Mejora de Escalabilidad
 
 Esta implementación está preparada para ejecutarse en un entorno con múltiples réplicas:
@@ -222,13 +260,41 @@ La implementación actual de rate limiting con Bucket4j es por instancia. En un 
 
 Se utilizó AspectJ para capturar todas las llamadas a los controladores de forma no intrusiva, garantizando que el registro no afecte el rendimiento de la API.
 
-### Tests
+## Testing
 
-Se implementaron tests unitarios para los componentes principales. Para un proyecto productivo se recomendaría ampliar con:
+El proyecto incluye una suite completa de tests para garantizar la calidad del código:
 
-- Tests de integración con TestContainers.
-- Tests de rendimiento con JMeter o similar.
+### Tests Unitarios
+
+- **Controllers**: Verifican el correcto manejo de requests/responses y status HTTP.
+- **Services**: Comprueban la lógica de negocio, caché y reintentos.
+- **Repositories**: Validan las operaciones de persistencia.
+- **Exception Handlers**: Aseguran el manejo adecuado de errores.
+
+### Tests de Integración
+
+- Tests con contexto de Spring que validan la interacción entre componentes.
+- Pruebas de integración con bases de datos utilizando H2 en memoria.
+- Verificación de flujos completos request-to-database.
+
+### Cobertura de Código
+
+- El proyecto mantiene una cobertura de tests superior al 80%.
+- Se incluyen assertions para validar tanto casos exitosos como de error.
+
+### Automatización en CI/CD
+
+- Los tests se ejecutan automáticamente en cada Pull Request.
+- GitHub Actions verifica que todos los tests pasen antes de permitir el merge.
+- Se generan reportes de cobertura como parte del pipeline de CI.
+- Las builds fallan si la cobertura cae por debajo del umbral establecido.
+
+Para un despliegue en producción, se recomendaría complementar con:
+
+- Tests de contrato con Spring Cloud Contract.
+- Tests de rendimiento con JMeter o Gatling.
+- Tests E2E con Selenium o Cypress para verificar integraciones.
 
 ## Autor
 
-Hugo Herrera, Tech Lead - For Tenpo Challenge
+Hugo Herrera, Software Architect, Tech Lead - For Tenpo Challenge

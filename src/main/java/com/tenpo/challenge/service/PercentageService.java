@@ -18,6 +18,29 @@ import reactor.util.retry.Retry;
 
 import java.time.Duration;
 
+/**
+ * Servicio responsable de obtener valores de porcentaje desde un servicio externo.
+ * 
+ * Este servicio proporciona métodos tanto síncronos como reactivos para obtener valores de porcentaje,
+ * con mecanismos de reintento y almacenamiento en caché integrados para mejorar la fiabilidad y el rendimiento.
+ * 
+ * Los valores de porcentaje se almacenan en caché para reducir las llamadas al servicio externo y proporcionar
+ * valores de respaldo cuando el servicio externo no está disponible. El servicio utiliza WebClient
+ * para comunicarse con el servicio externo.
+ * 
+ * Propiedades de configuración:
+ * - external-service.percentage.url: URL del servicio externo de porcentajes
+ * - external-service.percentage.retry-max-attempts: Número máximo de intentos de reintento
+ * - external-service.percentage.retry-delay: Retraso entre intentos de reintento en milisegundos
+ * 
+ * @see WebClient
+ * @see Retryable
+ * @see Cacheable
+ * @see ExternalServiceException
+ * 
+ * @author Hugo Herrera
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
