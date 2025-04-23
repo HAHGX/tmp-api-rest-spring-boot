@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 // publisher mono se usa para el enfoque reactivo. Mono a diferencia de flux, es un solo valor
+// TODO: implementar el enfoque mixto
 //import reactor.core.publisher.Mono;
 
 import static org.mockito.ArgumentMatchers.any;

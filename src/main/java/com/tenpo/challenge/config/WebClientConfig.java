@@ -3,6 +3,7 @@ package com.tenpo.challenge.config;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -12,6 +13,23 @@ import reactor.netty.http.client.HttpClient;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Configuración de WebClient para realizar peticiones HTTP.
+ * 
+ * Esta clase proporciona una configuración personalizada para WebClient
+ * con timeouts específicos para evitar bloqueos indefinidos en las 
+ * operaciones de red.
+ * 
+ * Los timeouts configurados son:
+ * - Timeout de conexión: 5 segundos
+ * - Timeout de respuesta: 5 segundos
+ * - Timeout de lectura: 5 segundos
+ * - Timeout de escritura: 5 segundos
+ *
+ * @Author Hugo Herrera
+ * @Version 1.0
+ *
+ */
 @Configuration
 public class WebClientConfig {
 

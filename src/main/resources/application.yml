@@ -2,9 +2,9 @@ spring:
   application:
     name: tenpo-challenge
   datasource:
-    url: jdbc:postgresql://localhost:5432/tenpo_challenge
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/tenpo_challenge}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -24,10 +24,10 @@ spring:
     type: redis
   data:
     redis:
-      host: localhost
+      host: ${REDIS_HOST:localhost}
       port: 6379
       timeout: 10000
-      
+
 server:
   port: 8080
   servlet:
@@ -35,14 +35,14 @@ server:
 
 external-service:
   percentage:
-    url: http://localhost:8080/api/mock/percentage
+    url: ${EXTERNAL_SERVICE_URL:http://localhost:8080/api/mock/percentage}
     cache-ttl: 1800000 # 30 minutos en milisegundos
     retry-max-attempts: 3
     retry-delay: 1000 # 1 segundo en milisegundos
-    
+
 rate-limit:
   requests-per-minute: 3
-  
+
 springdoc:
   api-docs:
     path: /api-docs

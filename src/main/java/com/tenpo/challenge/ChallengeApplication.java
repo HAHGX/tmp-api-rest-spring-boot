@@ -6,6 +6,12 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+/*
+* Main class para la aplicacion Tenpo Challenge
+* @author Hugo Herrera
+* @version 1.0
+*/
+
 @SpringBootApplication
 @EnableCaching
 @EnableAsync

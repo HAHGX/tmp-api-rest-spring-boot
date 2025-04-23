@@ -13,6 +13,22 @@ import jakarta.validation.constraints.Min;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Configuración para el sistema de limitación de tasas (Rate Limit).
+ * 
+ * Esta clase configura un bucket que se utiliza para implementar un sistema de 
+ * limitación de tasa de solicitudes a la API, basado en la biblioteca Bucket4j.
+ * 
+ * El límite de tasa se configura según las propiedades definidas en {@link RateLimitProperties},
+ * permitiendo especificar el número máximo de solicitudes permitidas por período de tiempo.
+ * 
+ * @see RateLimitProperties
+ * 
+ *
+ * @Author Hugo Herrera
+ * @Version 1.0
+ *
+ */
 @Configuration
 public class RateLimitConfig {
 

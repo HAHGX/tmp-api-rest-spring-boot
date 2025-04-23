@@ -8,6 +8,19 @@ import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Entidad que representa un registro histórico de llamadas a la API realizadas dentro del sistema.
+ * <p>
+ * Esta clase captura detalles sobre cada solicitud a la API y su correspondiente respuesta,
+ * incluyendo el endpoint accedido, el método HTTP utilizado, los parámetros de la solicitud, 
+ * el cuerpo de la respuesta, el código de estado y cualquier mensaje de error que haya ocurrido. 
+ * Cada registro es automáticamente marcado con fecha y hora al ser creado.
+ * <p>
+ * La clase se utiliza para propósitos de auditoría, monitoreo y resolución de problemas.
+ *
+ * @author Hugo Herrera
+ * @version 1.0
+ */
 @Entity
 @Table(name = "api_call_history")
 @Data

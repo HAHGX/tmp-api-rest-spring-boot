@@ -10,6 +10,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+/**
+ * Servicio para gestionar el registro histórico de llamadas a la API.
+ * 
+ * Este servicio proporciona funcionalidades para guardar de manera asíncrona
+ * registros de llamadas a la API y recuperar estos registros de manera paginada.
+ * El guardado asíncrono asegura que los fallos en el registro no afecten
+ * al servicio principal de la aplicación.
+ * 
+ * @author Hugo Herrera
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j

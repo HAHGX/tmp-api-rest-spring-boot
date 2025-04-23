@@ -8,6 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+/**
+ * Servicio para realizar cálculos con dos números y un porcentaje
+*
+* @author Hugo Herrera
+* @version 1.0
+*/
 @Service
 @RequiredArgsConstructor
 @Slf4j
