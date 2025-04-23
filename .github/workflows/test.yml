@@ -3,15 +3,15 @@ name: Java CI with Maven
 on:
     push:
         branches:
-            - main # O la rama principal de tu repositorio
-            - 'refs/tags/*' # Para ejecutar en cada tag
-            - feature/* # Para ejecutar en cada rama de características
-            - chore/* # Para ejecutar en cada rama de mantenimiento
-            - bugfix/* # Para ejecutar en cada rama de corrección de errores
-            - hotfix/* # Para ejecutar en cada rama de corrección urgente
+            - main # Or the main branch of your repository
+            - 'refs/tags/*' # To run on each tag
+            - feature/* # To run on each feature branch
+            - chore/* # To run on each maintenance branch
+            - bugfix/* # To run on each bugfix branch
+            - hotfix/* # To run on each hotfix branch
 
     pull_request:
-        branches: [ main ] # O la rama principal de tu repositorio
+        branches: [ main ] # Or the main branch of your repository
 
 jobs:
     test:
