@@ -4,9 +4,9 @@
 # Uso: ./build-and-push.sh [username] [tag]
 
 # Variables
-USERNAME=${1:-"tenpo"}
+USERNAME=${1:-"hahg"}
 TAG=${2:-"latest"}
-IMAGE_NAME="tenpo-challenge"
+IMAGE_NAME="tmp-api-rest-spring-boot"
 FULL_IMAGE_NAME="$USERNAME/$IMAGE_NAME:$TAG"
 
 echo "Construyendo la imagen Docker: $FULL_IMAGE_NAME"
