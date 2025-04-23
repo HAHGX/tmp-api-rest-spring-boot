@@ -1,17 +1,29 @@
 package com.tenpo.challenge.config;
 
+import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("test") // Activa el perfil de pruebas
 class RateLimitConfigIntegrationTest {
 
-    @Autowired
     private Bucket rateLimitBucket;
+
+    @BeforeEach
+    void setUp() {
+        // Crear un bucket en memoria para pruebas (3 tokens, recarga 3 por minuto)
+        Bandwidth limit = Bandwidth.classic(3, Refill.greedy(3, Duration.ofMinutes(1)));
+        rateLimitBucket = Bucket.builder().addLimit(limit).build();
+    }
 
     @Test
     void testRateLimiter_AllowsLimitedRequests() {
